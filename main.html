@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>a.l.i.v.e</title>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="video-background">
+            <video autoplay loop muted playsinline>
+                <source src="./assets/pp8kzyf6v1rmy0cvsgz96yj4kc_result_.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Hero Section -->
+                <div class="hero-section">
+                    <h1>
+                        <span>a</span><span>.</span><span>l</span><span>.</span><span>i</span><span>.</span><span>v</span><span>.</span><span>e</span>
+                    </h1>
+                    <p class="tagline">your digital workshop, <br>
+                        inspire people from all over the world
+                    </p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs-container">
+                    <button class="tab-btn active" onclick="switchTab('create')">Create</button>
+                    <button class="tab-btn" onclick="switchTab('read')">Read</button>
+                    <button class="tab-btn" onclick="switchTab('update')">Update</button>
+                    <button class="tab-btn" onclick="switchTab('delete')">Delete</button>
+                </div>
+
+                <!-- CREATE TAB -->
+                <div id="create" class="tab-content active">
+                    <div class="form-section">
+                        <h2>Create Blog Post</h2>
+                        <div id="createMessage"></div>
+                        <form id="createForm">
+                            <div class="form-group">
+                                <label for="createTitle">Title</label>
+                                <input type="text" class="form-control" id="createTitle" placeholder="Enter post title" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="createBody">Body</label>
+                                <textarea class="form-control" id="createBody" placeholder="Write your content here..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="createAuthor">Author</label>
+                                <input type="text" class="form-control" id="createAuthor" placeholder="Your name">
+                            </div>
+
+                            <button type="submit" class="btn-publish">Publish Post</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- READ TAB -->
+                <div id="read" class="tab-content">
+                    <div class="posts-section">
+                        <h2>All Blog Posts</h2>
+                        <div id="readMessage"></div>
+                        <button class="btn-load" onclick="loadAllPosts()">Load All Posts</button>
+                        <div id="postsList"></div>
+                    </div>
+                </div>
+
+                <!-- UPDATE TAB -->
+                <div id="update" class="tab-content">
+                    <div class="form-section">
+                        <h2>Update Blog Post</h2>
+                        <div id="updateMessage"></div>
+                        
+                        <div class="form-group">
+                            <label for="updatePostId">Post ID</label>
+                            <input type="text" class="form-control" id="updatePostId" placeholder="Enter post ID">
+                            <button type="button" class="btn-load" style="width: 100%; margin-top: 10px;" onclick="loadPostForUpdate()">Load Post</button>
+                        </div>
+
+                        <div id="updateFormContainer" style="display: none;">
+                            <form id="updateForm">
+                                <div class="form-group">
+                                    <label for="updateTitle">Title</label>
+                                    <input type="text" class="form-control" id="updateTitle" placeholder="Enter post title" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="updateBody">Body</label>
+                                    <textarea class="form-control" id="updateBody" placeholder="Write your content here..." required></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="updateAuthor">Author</label>
+                                    <input type="text" class="form-control" id="updateAuthor" placeholder="Your name">
+                                </div>
+
+                                <button type="submit" class="btn-update">Update Post</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DELETE TAB -->
+                <div id="delete" class="tab-content">
+                    <div class="form-section">
+                        <h2>Delete Blog Post</h2>
+                        <div id="deleteMessage"></div>
+                        
+                        <div class="form-group">
+                            <label for="deletePostId">Post ID</label>
+                            <input type="text" class="form-control" id="deletePostId" placeholder="Enter post ID to delete">
+                        </div>
+
+                        <button type="button" class="btn-delete" onclick="deletePost()">Delete Post</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Decoration Box -->
+            <div class="decoration-box">
+                <div class="decoration-content">
+                    <div class="crud-item">create.</div>
+                    <div class="crud-item inactive">read.</div>
+                    <div class="crud-item active">update.</div>
+                    <div class="crud-item inactive">delete.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-9xpjCKOccMqY5h+zcvHqlYq3rSQjuCYpbNPqRkGJLbKaWChCPuAj0NNlVQrKDgj2" crossorigin="anonymous"></script>
+    <script>
+        // Animate header
+        document.addEventListener('DOMContentLoaded', function() {
+            const spans = document.querySelectorAll('h1 span');
+            spans.forEach((span, index) => {
+                span.style.animationDelay = (index * 0.08) + 's';
+            });
+        });
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Helper function to show messages
+        function showMessage(elementId, message, type) {
+            const messageEl = document.getElementById(elementId);
+            messageEl.innerHTML = `<div class="message ${type}">${message}</div>`;
+            setTimeout(() => {
+                messageEl.innerHTML = '';
+            }, 3000);
+        }
+
+        // CREATE POST
+        document.getElementById('createForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('createTitle').value;
+            const body = document.getElementById('createBody').value;
+            const author = document.getElementById('createAuthor').value;
+
+            try {
+                const response = await fetch('/blogs', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, body, author })
+                });
+
+                if (response.ok) {
+                    const blog = await response.json();
+                    showMessage('createMessage', `✓ Post created successfully! ID: ${blog._id}`, 'success');
+                    document.getElementById('createForm').reset();
+                } else {
+                    const error = await response.json();
+                    showMessage('createMessage', `✗ Error: ${error.message}`, 'error');
+                }
+            } catch (error) {
+                showMessage('createMessage', `✗ Error: ${error.message}`, 'error');
+            }
+        });
+
+        // READ ALL POSTS
+        async function loadAllPosts() {
+            const postsList = document.getElementById('postsList');
+            postsList.innerHTML = '<div class="loading"><div class="spinner"></div>Loading posts...</div>';
+
+            try {
+                const response = await fetch('/blogs');
+                const blogs = await response.json();
+
+                if (blogs.length === 0) {
+                    postsList.innerHTML = '<p style="text-align: center; color: #999;">No posts yet. Create one!</p>';
+                    return;
+                }
+
+                postsList.innerHTML = blogs.map(blog => `
+                    <div class="post-card">
+                        <h3>${blog.title}</h3>
+                        <div class="post-meta">By ${blog.author || 'Anonymous'} • Created at ${new Date(blog.createdAt).toLocaleDateString()} • Updated at ${new Date(blog.updatedAt).toLocaleDateString()}</div>
+                        <div class="post-body">${blog.body}</div>
+                        <small style="color: #ccc;">ID: ${blog._id}</small>
+                    </div>
+                `).join('');
+            } catch (error) {
+                showMessage('readMessage', `✗ Error: ${error.message}`, 'error');
+            }
+        }
+
+        // LOAD POST FOR UPDATE
+        async function loadPostForUpdate() {
+            const postId = document.getElementById('updatePostId').value;
+            if (!postId) {
+                showMessage('updateMessage', '✗ Please enter a Post ID', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/blogs/${postId}`);
+                if (!response.ok) {
+                    showMessage('updateMessage', '✗ Post not found', 'error');
+                    return;
+                }
+
+                const blog = await response.json();
+                document.getElementById('updateTitle').value = blog.title;
+                document.getElementById('updateBody').value = blog.body;
+                document.getElementById('updateAuthor').value = blog.author || '';
+                document.getElementById('updateFormContainer').style.display = 'block';
+                showMessage('updateMessage', '✓ Post loaded', 'success');
+            } catch (error) {
+                showMessage('updateMessage', `✗ Error: ${error.message}`, 'error');
+            }
+        }
+
+        // UPDATE POST
+        document.getElementById('updateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const postId = document.getElementById('updatePostId').value;
+            const title = document.getElementById('updateTitle').value;
+            const body = document.getElementById('updateBody').value;
+            const author = document.getElementById('updateAuthor').value;
+
+            try {
+                const response = await fetch(`/blogs/${postId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, body, author })
+                });
+
+                if (response.ok) {
+                    showMessage('updateMessage', '✓ Post updated successfully!', 'success');
+                    document.getElementById('updateFormContainer').style.display = 'none';
+                    document.getElementById('updatePostId').value = '';
+                } else {
+                    const error = await response.json();
+                    showMessage('updateMessage', `✗ Error: ${error.message}`, 'error');
+                }
+            } catch (error) {
+                showMessage('updateMessage', `✗ Error: ${error.message}`, 'error');
+            }
+        });
+
+        // DELETE POST
+        async function deletePost() {
+            const postId = document.getElementById('deletePostId').value;
+            if (!postId) {
+                showMessage('deleteMessage', '✗ Please enter a Post ID', 'error');
+                return;
+            }
+
+            if (!confirm('Are you sure you want to delete this post?')) return;
+
+            try {
+                const response = await fetch(`/blogs/${postId}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    showMessage('deleteMessage', '✓ Post deleted successfully!', 'success');
+                    document.getElementById('deletePostId').value = '';
+                } else {
+                    const error = await response.json();
+                    showMessage('deleteMessage', `✗ Error: ${error.message}`, 'error');
+                }
+            } catch (error) {
+                showMessage('deleteMessage', `✗ Error: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>
